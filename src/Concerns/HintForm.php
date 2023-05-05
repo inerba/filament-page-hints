@@ -20,7 +20,7 @@ class HintForm
             ->required();
     }
 
-    public static function getHintComponent(): \Filament\Forms\Components\RichEditor
+    public static function getHintComponent(): \Filament\Forms\Components\MarkdownEditor
     {
 //         return Forms\Components\RichEditor::make('hint')
 //             ->label(__('filament-page-hints::translations.resource.form.hint'))
