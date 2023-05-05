@@ -22,11 +22,15 @@ class HintForm
 
     public static function getHintComponent(): \Filament\Forms\Components\RichEditor
     {
-        return Forms\Components\RichEditor::make('hint')
+//         return Forms\Components\RichEditor::make('hint')
+//             ->label(__('filament-page-hints::translations.resource.form.hint'))
+//             ->placeholder(__('filament-page-hints::translations.resource.form.hint.placeholder.label'))
+//             ->required()
+//             ->toolbarButtons(config('filament-page-hints.toolbar_buttons', []));
+        return Forms\Components\MarkdownEditor::make('hint')
             ->label(__('filament-page-hints::translations.resource.form.hint'))
             ->placeholder(__('filament-page-hints::translations.resource.form.hint.placeholder.label'))
             ->required()
-            ->toolbarButtons(config('filament-page-hints.toolbar_buttons', []));
     }
 
     public static function getUrlComponent(): \Filament\Forms\Components\TextInput
