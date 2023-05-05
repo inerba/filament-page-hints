@@ -30,7 +30,7 @@ class HintForm
         return Forms\Components\MarkdownEditor::make('hint')
             ->label(__('filament-page-hints::translations.resource.form.hint'))
             ->placeholder(__('filament-page-hints::translations.resource.form.hint.placeholder.label'))
-            ->required()
+            ->required();
     }
 
     public static function getUrlComponent(): \Filament\Forms\Components\TextInput
