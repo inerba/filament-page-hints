@@ -51,6 +51,7 @@ class PageHints extends Component implements Forms\Contracts\HasForms
         return [
             HintForm::getTitleComponent(),
             HintForm::getHintComponent(),
+            HintForm::getVideoUrlComponent(),
             Forms\Components\Hidden::make('route'),
             Forms\Components\Hidden::make('url'),
         ];
@@ -91,6 +92,7 @@ class PageHints extends Component implements Forms\Contracts\HasForms
             'hint' => $this->model->hint,
             'route' => $this->model->route,
             'url' => $this->model->url,
+            'video_url' => $this->model->video_url,
         ]);
     }
 

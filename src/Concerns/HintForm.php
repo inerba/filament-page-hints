@@ -20,17 +20,13 @@ class HintForm
             ->required();
     }
 
-    public static function getHintComponent(): \Filament\Forms\Components\MarkdownEditor
+    public static function getHintComponent(): \Filament\Forms\Components\RichEditor
     {
-//         return Forms\Components\RichEditor::make('hint')
-//             ->label(__('filament-page-hints::translations.resource.form.hint'))
-//             ->placeholder(__('filament-page-hints::translations.resource.form.hint.placeholder.label'))
-//             ->required()
-//             ->toolbarButtons(config('filament-page-hints.toolbar_buttons', []));
-        return Forms\Components\MarkdownEditor::make('hint')
+        return Forms\Components\RichEditor::make('hint')
             ->label(__('filament-page-hints::translations.resource.form.hint'))
             ->placeholder(__('filament-page-hints::translations.resource.form.hint.placeholder.label'))
-            ->required();
+            ->required()
+            ->toolbarButtons(config('filament-page-hints.toolbar_buttons', []));
     }
 
     public static function getUrlComponent(): \Filament\Forms\Components\TextInput
@@ -40,6 +36,27 @@ class HintForm
             ->placeholder(__('filament-page-hints::translations.resource.form.url.placeholder.label'))
             ->url()
             ->hidden(fn (Livewire $livewire) => $livewire instanceof Pages\CreatePageHints)
+            ->nullable();
+    }
+
+    public static function getVideoUrlComponent(): \Filament\Forms\Components\TextInput
+    {
+        return Forms\Components\TextInput::make('video_url')
+            ->label(__('filament-page-hints::translations.resource.form.video_url'))
+            ->placeholder(__('filament-page-hints::translations.resource.form.video_url.placeholder.label'))
+            ->url()
+            ->rules([
+                function () {
+                    return function (string $attribute, $value, Closure $fail) {
+                        if (
+                            ! preg_match('/^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/i', $value) &&
+                            ! preg_match('/^(?:https?:\/\/)?(?:www\.)?vimeo\.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|)(\d+)/i', $value)
+                        ) {
+                            $fail("__('filament-page-hints::translations.resource.form.video_url.error')");
+                        }
+                    };
+                },
+            ])
             ->nullable();
     }
 
@@ -69,6 +86,7 @@ class HintForm
                     self::getRouteComponent(),
                     self::getUrlComponent(),
                     self::getHintComponent(),
+                    self::getVideoUrlComponent(),
                 ]),
         ];
     }

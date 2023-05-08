@@ -12,11 +12,9 @@
             {{ $this->form }}
 
             <x-filament::button type="submit" color="{{ config('filament-page-hints.upsert_hint_button_color') }}"
-                wire:target="submit"
-                wire:loading.attr="disabled" 
-                wire:loading.class="opacity-70 cursor-wait"
+                wire:target="submit" wire:loading.attr="disabled" wire:loading.class="cursor-wait opacity-70"
                 class="mt-4">
-                Submit
+                {{ __('filament-page-hints::translations.modal.buttons.submit.label') }}
             </x-filament::button>
         </form>
     </x-filament::modal>

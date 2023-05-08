@@ -74,6 +74,12 @@ class PageHintsResource extends Resource
                     ->html()
                     ->label(trans('filament-page-hints::translations.resource.table.hint'))
                     ->toggleable(isToggledHiddenByDefault: true),
+
+                Tables\Columns\TextColumn::make('video_url')
+                    ->label(trans('filament-page-hints::translations.resource.table.video_url'))
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
             ])
             ->filters([
                 //

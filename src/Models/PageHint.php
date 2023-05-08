@@ -32,6 +32,19 @@ class PageHint extends Model
         return 'uuid';
     }
 
+    public function getEmbedUrlAttribute()
+    {
+        $url = $this->video_url;
+
+        if (preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i', $url, $matches)) {
+            return 'https://www.youtube-nocookie.com/embed/'.$matches[1];
+        } elseif (preg_match('/vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|)(\d+)/i', $url, $matches)) {
+            return 'https://player.vimeo.com/video/'.$matches[3];
+        }
+
+        return false;
+    }
+
     protected static function booted(): void
     {
         static::creating(function ($hint) {
